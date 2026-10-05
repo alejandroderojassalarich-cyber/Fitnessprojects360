@@ -36,17 +36,8 @@
 </section>
 
 <!-- ============ CONTACTO: INFO + FORMULARIO ============ -->
-<!--
-  INSTRUCCIONES PARA ALEJANDRO — CÓMO ACTIVAR EL FORMULARIO (5 minutos, gratis):
-  1. Ve a https://formspree.io y crea una cuenta gratuita con tu email.
-  2. Crea un nuevo formulario ("New Form"), dale un nombre (ej. "Contacto FP360").
-  3. Formspree te dará una URL parecida a: https://formspree.io/f/xxxxabcd
-  4. Copia esa URL y sustitúyela en la línea de abajo donde dice:
-     action="https://formspree.io/f/TU_ID_AQUI"
-  5. Guarda el archivo y sube los cambios a GitHub. Formspree enviará cada
-     envío del formulario directamente a tu email.
-  Alternativas gratuitas si prefieres: Getform.io o Web3Forms.com (el proceso es igual).
--->
+<!-- Formulario con FormSubmit (sin cuenta). Los mensajes llegan a info@fitnessprojects360.com.
+     La PRIMERA vez que alguien lo envíe, FormSubmit manda un email de activación a esa dirección: hay que pulsar "Activate". -->
 <section style="padding:70px 40px 90px 40px;max-width:1100px;margin:0 auto;">
   <div style="display:flex;flex-wrap:wrap;gap:50px;">
 
@@ -80,8 +71,14 @@
     <!-- FORMULARIO -->
     <div style="flex:1 1 380px;min-width:300px;background-color:#f7f7f5;border-radius:16px;padding:36px 32px;">
       <h2 id="form-title" style="font-size:20px;font-weight:800;margin:0 0 22px 0;color:#000000;">Envíanos un mensaje</h2>
+      <div id="form-sent" style="display:none;background-color:#D1FF00;color:#000000;padding:14px 16px;border-radius:8px;font-size:13.5px;font-weight:600;margin-bottom:18px;">¡Mensaje enviado! Te responderemos lo antes posible.</div>
 
-      <form action="https://formspree.io/f/TU_ID_AQUI" method="POST">
+      <form action="https://formsubmit.co/info@fitnessprojects360.com" method="POST">
+        <input type="hidden" name="_subject" value="Nuevo mensaje desde fitnessprojects360.com">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://fitnessprojects360.com/contacto.html?enviado=1">
+        <input type="text" name="_honey" style="display:none;" tabindex="-1" autocomplete="off">
         <div style="margin-bottom:16px;">
           <label id="form-label-name" style="display:block;font-size:12.5px;font-weight:700;color:#333333;margin-bottom:6px;">Nombre</label>
           <input type="text" name="name" required style="width:100%;box-sizing:border-box;padding:12px 14px;border-radius:8px;border:1px solid #d9d9d9;font-family:'Poppins',Arial,sans-serif;font-size:14px;">
@@ -216,6 +213,7 @@ var translations = {
     "w4-title": "Gimnasio Profesional",
     "w5-title": "Gimnasio Comercial — Zona de fuerza",
     "w6-title": "Gimnasio de Fuerza — Máquinas de carga",
+    "form-sent": "¡Mensaje enviado! Te responderemos lo antes posible.",
     "foot-desc": "Diseño, suministro e instalación de equipamiento profesional Binom Advanced para gimnasios en Chipre.",
     "foot-col1-head": "Enlaces", "foot-l1": "Inicio", "foot-l2": "Catálogo", "foot-l4": "Servicios",
     "foot-col2-head": "Contacto",
@@ -247,6 +245,7 @@ var translations = {
     "w4-title": "Professional Gym",
     "w5-title": "Commercial Gym — Strength Area",
     "w6-title": "Strength Gym — Plate-Loaded Machines",
+    "form-sent": "Message sent! We will get back to you as soon as possible.",
     "foot-desc": "Design, supply and installation of professional Binom Advanced equipment for gyms in Cyprus.",
     "foot-col1-head": "Links", "foot-l1": "Home", "foot-l2": "Catalog", "foot-l4": "Services",
     "foot-col2-head": "Contact",
@@ -278,6 +277,7 @@ var translations = {
     "w4-title": "Επαγγελματικό Γυμναστήριο",
     "w5-title": "Εμπορικό Γυμναστήριο — Ζώνη δύναμης",
     "w6-title": "Γυμναστήριο Δύναμης — Μηχανήματα με δίσκους",
+    "form-sent": "Το μήνυμα στάλθηκε! Θα σας απαντήσουμε το συντομότερο δυνατό.",
     "foot-desc": "Σχεδιασμός, προμήθεια και εγκατάσταση επαγγελματικού εξοπλισμού Binom Advanced για γυμναστήρια στην Κύπρο.",
     "foot-col1-head": "Σύνδεσμοι", "foot-l1": "Αρχική", "foot-l2": "Κατάλογος", "foot-l4": "Υπηρεσίες",
     "foot-col2-head": "Επικοινωνία",
@@ -314,6 +314,15 @@ function setLang(lang) {
   var saved = "es";
   try { var stored = localStorage.getItem("fp360_lang"); if (stored) { saved = stored; } } catch (e) {}
   setLang(saved);
+})();
+
+(function () {
+  try {
+    if (window.location.search.indexOf('enviado=1') !== -1) {
+      var b = document.getElementById('form-sent');
+      if (b) { b.style.display = 'block'; b.scrollIntoView(); }
+    }
+  } catch (e) {}
 })();
 </script>
 
